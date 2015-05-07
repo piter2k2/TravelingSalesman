@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TravelingSalesman</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="vendor/bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="src/common/assets/styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="travelingSalesmanApp" ng-controller="MainCtrl">
+
+    <div id="left"></div>
+    <div id="right">
+        <div class="box">
+            <h1 class="text-center">Traveling Salesman</h1>
+            <div class="btn-group btn-group-justified">
+                <a ng-class="{disabled: getMarkers().length <= 1}" ng-click="calculate()" class="btn btn-success" href="#">Calculate</a>
+                <a ng-class="{disabled: getMarkers().length == 0}" ng-click="deleteMarkers()" class="btn btn-danger" href="#">Delete all points</a>
+            </div>
+        </div>
+        <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home"  role="tab" data-toggle="tab">Points table</a></li>
+                <li role="presentation"><a href="#details" role="tab" data-toggle="tab">Route details</a></li>
+                <li role="presentation"><a href="#about" role="tab" data-toggle="tab">About</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <table class="table table-striped table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width:10%">#</th>
+                            <th style="width:81%">Address</th>
+                            <th style="width:9%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="marker in getMarkers()">
+                            <th class="text-center">{{$index + 1}}</th>
+                            <td>{{ marker.address }}</td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="deleteMarker($index)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="details">
+                    <div ng-if="!order.length" class="bs-callout bs-callout-danger">
+                        <h4 id="cross-browser-compatibility">There is no route!<a href="#cross-browser-compatibility" class="anchorjs-link"><span class="anchorjs-icon"></span></a></h4>
+                        <p>Add some points and click calculate.</p>
+                    </div>
+                    <div ng-if="order.length">
+                        <ol>
+                            <li ng-repeat="o in order track by $index">
+                                {{ getMarkers()[o].address }}
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="about">
+                    <address>
+                        <strong>Piotr Grzesiak</strong><br>
+                        <a href="mailto:piter2k1@gmail.com">piter2k1@gmail.com</a>
+                    </address>
+                    <address>
+                        <strong>Szymon Janas</strong><br>
+                        <a href="mailto:janas.szymon90@gmail.com">janas.szymon90@gmail.com</a>
+                    </address>
+                    <address>
+                        <strong>Krzysztof Krzyżaniak</strong><br>
+                        <a href="mailto:acromcia@gmail.com">acromcia@gmail.com</a>
+                    </address>
+                    <address>
+                        <strong>Michał Nowakowski</strong><br>
+                        <a href="mailto:rvn.new@gmail.com">rvn.new@gmail.com</a>
+                    </address>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--<div class="container" ng-controller="MainCtrl">-->
+        <!--<h1 class="text-muted">TravelingSalesman</h1>-->
+
+        <!--<div class="row">-->
+            <!--<div id="map"></div>-->
+        <!--</div>-->
+        <!--<button class="btn" ng-click="deleteMarkers()">Usuń punkty</button>-->
+
+        <!--<div class="footer">-->
+            <!--<p>Grzesiak, Janas, Krzyżaniak, Nowakowski Team</p>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="vendor/bower_components/jquery/jquery.js"></script>
+    <script src="vendor/bower_components/es5-shim/es5-shim.js"></script>
+    <script src="vendor/bower_components/angular/angular.js"></script>
+    <script src="vendor/bower_components/json3/lib/json3.min.js"></script>
+    <script src="vendor/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="vendor/bower_components/angular-route/angular-route.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) src/scripts.js -->
+    <script src="src/app.js"></script>
+    <script src="src/common/controllers/main.js"></script>
+    <script src="src/common/services/GoogleMapsFactory.js"></script>
+    <script src="src/common/services/chain.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
