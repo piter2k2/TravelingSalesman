@@ -1,0 +1,4 @@
+app/vendor
+app/.buildignore
+dist
+node_modules
