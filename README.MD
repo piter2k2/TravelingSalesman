@@ -11,4 +11,8 @@ Buduje wersje dist
 
     grunt build
     
+##Podgląd online
+
+    http://neo.stronazen.pl/tsp/
+    
 ##Frajer
